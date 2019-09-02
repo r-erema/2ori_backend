@@ -1,6 +1,8 @@
 package main
 
 import (
+	"application/dto"
+	"application/use_case"
 	"fmt"
 	"github.com/gorilla/mux"
 	"net/http"
@@ -25,5 +27,10 @@ func main() {
 }
 
 func createTourney(w http.ResponseWriter, r *http.Request) {
+
+	p1 := dto.Player{"Roma", 2}
+	p2 := dto.Player{"Roma"}
+	createTourneyUseCase := use_case.NewCreateTourney(8)
+
 	w.WriteHeader(http.StatusOK)
 }
