@@ -6,3 +6,7 @@ type Team struct {
 	rating float32
 	league string
 }
+
+func (team *Team) GetId() string {
+	return team.id
+}

@@ -1,6 +1,10 @@
 package create_tourney
 
-import "domain/team/repository"
+import (
+	"domain/team/entity"
+	"domain/team/repository"
+	"github.com/thoas/go-funk"
+)
 
 type Handler struct {
 	teamRepository repository.TeamRepository
@@ -9,11 +13,17 @@ type Handler struct {
 func (handler Handler) handle(command Command) {
 
 	players := command.getPlayers()
-	var ids []uint
+	var ids []uint8
 	for _, player := range players {
 		ids = append(ids, player.GetRequiredTeamsIds()...)
 	}
 
-	//handler.teamRepository.FindByIds([])
+	teams := handler.teamRepository.FindByIds(ids)
+
+	for _, player := range players {
+		funk.Filter(teams, func(team entity.Team) bool {
+			return funk.Contains(player.GetRequiredTeamsIds(), team.GetId())
+		})
+	}
 
 }
