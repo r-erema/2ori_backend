@@ -1,0 +1,130 @@
+#EPL
+
+- id: 58b1d3c5-d993-44ac-86cb-e1771ed01f5e
+  name: Liverpool
+  rating: 5
+  league: EPL
+
+- id: 8f5a84ae-d239-4933-8376-08d887e85404
+  name: Manchester City
+  rating: 5
+  league: EPL
+
+- id: 8f5a84ae-d239-4933-8376-08d887e85404
+  name: Chelsea
+  rating: 4.5
+  league: EPL
+
+- id: 1a9771a8-5d7a-4a10-9b8e-e0ba4bf22486
+  name: Arsenal
+  rating: 4.5
+  league: EPL
+
+- id: 34b9251b-61fc-49a2-96b1-9f68188ce624
+  name: Manchester United
+  rating: 4.5
+  league: EPL
+
+- id: 1f2b30dc-3419-4cc4-b085-927ba62e7d2d
+  name: Tottenham
+  rating: 5
+  league: EPL
+
+- id: 1ac7d1ff-f8b7-4b79-95d7-87bb04a06019
+  name: Leicester
+  rating: 4
+  league: EPL
+
+- id: ca62af44-df76-4149-9678-2f5df3eb142e
+  name: Wolverhampton
+  rating: 4
+  league: EPL
+
+# La Liga
+- id: bac5c0f8-7d98-4097-b091-6d251ebf83ad
+  name: Real Madrid
+  rating: 5
+  league: La Liga
+
+- id: 396bb6c2-62cc-410e-a5ad-1100c4630886
+  name: Atlético Madrid
+  rating: 5
+  league: La Liga
+
+- id: db1a47d1-2dde-4bcb-9287-f5fd38c49b21
+  name: Barcelona
+  rating: 5
+  league: La Liga
+
+- id: 2fbb627d-6949-462a-a3c7-a93ea8625eae
+  name: Valencia
+  rating: 5
+  league: La Liga
+
+#Serie A
+- id: dabb1f81-f486-46b4-a4da-442557a139db
+  name: Juventus
+  rating: 5
+  league: La Liga
+
+- id: d023ecc8-a0b8-4086-a85e-c0424a751e8a
+  name: Napoli
+  rating: 5
+  league: La Liga
+
+- id: 03dc5ae9-d359-4753-9c64-e03196b8c4de
+  name: Atalanta
+  rating: 5
+  league: La Liga
+
+- id: 815a347a-bc3b-4540-a59a-19fd23b9592d
+  name: Inter Milan
+  rating: 5
+  league: La Liga
+
+- id: a2189174-7996-4d5f-ae0b-91e0d74938dd
+  name: AC Milan
+  rating: 5
+  league: La Liga
+
+#Bundesliga
+- id: 2c9b87a5-132e-4857-90c0-7e44af3d4596
+  name:  Bayern Munich
+  rating: 5
+  league: La Liga
+
+- id: 255a2ac7-09c6-49c5-8f6f-8093ab2c4f04
+  name: Borussia Dortmund
+  rating: 5
+  league: La Liga
+
+- id: 4aaeb28f-d6dd-4b52-951d-cac55aba6567
+  name: RB Leipzig
+  rating: 5
+  league: La Liga
+
+- id: db3f6aa2-75be-4a73-9b3e-c34ad1137324
+  name: Bayer Leverkusen
+  rating: 5
+  league: La Liga
+
+- id: 77720781-583e-41dd-b519-50c6b60ac2e5
+  name: Schalke 04
+  rating: 5
+  league: La Liga
+
+#Ligue 1
+- id: ba336f57-0f34-4659-b91d-2a3658823e08
+  name: Paris Saint-Germain
+  rating: 5
+  league: La Liga
+
+- id: 095b8994-edc2-42bd-95db-18e4b65479e8
+  name:  Lille
+  rating: 5
+  league: La Liga
+
+- id: 5332dbc2-5fbc-449f-b88e-40e09124e424
+  name: Lyon
+  rating: 5
+  league: La Liga

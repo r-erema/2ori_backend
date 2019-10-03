@@ -1,29 +1,32 @@
 package create_tourney
 
 import (
-	"domain/team/entity"
+	"../dto"
 	"domain/team/repository"
-	"github.com/thoas/go-funk"
 )
 
-type Handler struct {
+type handler struct {
 	teamRepository repository.TeamRepository
 }
 
-func (handler Handler) handle(command Command) {
+func NewHandler(teamRepository *repository.TeamRepository) *handler {
+	return &handler{teamRepository}
+}
+
+func (handler handler) Handle(command Command) {
 
 	players := command.getPlayers()
-	var ids []uint8
+	var playerTeamsBuckets []*dto.PlayerTeamsBucket
+	channel := make(chan *dto.PlayerTeamsBucket)
 	for _, player := range players {
-		ids = append(ids, player.GetRequiredTeamsIds()...)
+		go func() {
+			channel <- dto.NewBucket(player, handler.teamRepository.FindByIds(player.GetRequiredTeamsIds()))
+		}()
 	}
 
-	teams := handler.teamRepository.FindByIds(ids)
-
-	for _, player := range players {
-		funk.Filter(teams, func(team entity.Team) bool {
-			return funk.Contains(player.GetRequiredTeamsIds(), team.GetId())
-		})
+	select {
+	case bucket := <-channel:
+		playerTeamsBuckets = append(playerTeamsBuckets, bucket)
 	}
 
 }
