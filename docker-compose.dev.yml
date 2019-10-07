@@ -1,3 +1,16 @@
 version: 3
-  ser
+  db:
+    image: postgres
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+    ports:
+      - 5432:5432
 
+  app:
+    build: ./docker/app/
+    volumes:
+      - .:/go/src/app
+    depends_on:
+      - db

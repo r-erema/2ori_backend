@@ -1,8 +1,8 @@
 package main
 
 import (
-	"application/dto"
-	"application/usecase"
+	//"application/dto"
+	//"application/usecase"
 	"fmt"
 	"github.com/gorilla/mux"
 	"net/http"
@@ -28,9 +28,9 @@ func main() {
 
 func createTourney(w http.ResponseWriter, r *http.Request) {
 
-	p1 := dto.Player{"Roma", 2}
-	p2 := dto.Player{"Roma"}
-	createTourneyUseCase := usecase.NewCreateTourney(8)
+	//p1 := dto.Player{"Roma", 2}
+	//p2 := dto.Player{"Roma"}
+	//createTourneyUseCase := usecase.NewCreateTourney(8)
 
 	w.WriteHeader(http.StatusOK)
 }
