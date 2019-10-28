@@ -7,6 +7,8 @@ import (
 	"github.com/gorilla/mux"
 	"net/http"
 	"os"
+	"toury_bakcend/src/application/usecase/player/dto"
+	"toury_bakcend/src/application/usecase/tourney/create_tourney"
 )
 
 func main() {
@@ -28,9 +30,9 @@ func main() {
 
 func createTourney(w http.ResponseWriter, r *http.Request) {
 
-	//p1 := dto.Player{"Roma", 2}
-	//p2 := dto.Player{"Roma"}
-	//createTourneyUseCase := usecase.NewCreateTourney(8)
+	p1 := dto.Player{"Roma", 2}
+	p2 := dto.Player{"Roma"}
+	createTourneyUseCase := create_tourney.NewCreateTourney(8)
 
-	w.WriteHeader(http.StatusOK)
+	//w.WriteHeader(http.StatusOK)
 }
