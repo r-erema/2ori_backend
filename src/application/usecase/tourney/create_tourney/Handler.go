@@ -5,15 +5,15 @@ import (
 	"domain/team/repository"
 )
 
-type handler struct {
-	teamRepository repository.TeamRepository
+type Handler struct {
+	teamRepository *repository.TeamRepository
 }
 
-func NewHandler(teamRepository *repository.TeamRepository) *handler {
-	return &handler{teamRepository}
+func NewHandler(teamRepository *repository.TeamRepository) *Handler {
+	return &Handler{teamRepository}
 }
 
-func (handler handler) Handle(command Command) {
+func (handler Handler) Handle(command Command) {
 
 	players := command.getPlayers()
 	var playerTeamsBuckets []*dto.PlayerTeamsBucket
