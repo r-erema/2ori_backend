@@ -1,11 +1,7 @@
 package dto
 
 type Player struct {
-	name             string
-	teamsCount       uint
-	requiredTeamsIds []uint8
-}
-
-func (player Player) GetRequiredTeamsIds() []uint8 {
-	return player.requiredTeamsIds
+	Name             string `json:"name"`
+	TeamsCount       uint   `json:"teams_count"`
+	RequiredTeamsIds []uint `json:"required_teams_ids"`
 }

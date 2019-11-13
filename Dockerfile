@@ -3,7 +3,7 @@ ENV CGO_ENABLED 0
 ADD . /go/src/toury_bakcend
 ENV GOPATH "/go/src/toury_bakcend"
 WORKDIR /go/src/toury_bakcend
-RUN go build -gcflags "all=-N -l" -o /bin/toury_api ./web_api/api.go
+RUN go build -gcflags "all=-N -l" -o /bin/toury_api ./api.go
 
 # Compile Delve
 RUN apk add --no-cache git

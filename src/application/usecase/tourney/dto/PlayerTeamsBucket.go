@@ -1,7 +1,7 @@
 package dto
 
 import (
-	"../../player/dto"
+	"application/usecase/player/dto"
 	"domain/team/entity"
 )
 

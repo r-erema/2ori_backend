@@ -1,5 +1,15 @@
 version: 3
+
   db:
+    image: postgres
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+    ports:
+      - 5432:5432
+
+  db_test:
     image: postgres
     environment:
       POSTGRES_DB: ${DB_NAME}

@@ -7,6 +7,6 @@ import (
 type StubRepo struct {
 }
 
-func (Repo *StubRepo) FindByIds(ids []uint8) []entity.Team {
+func (Repo *StubRepo) FindByIds(ids []uint) []entity.Team {
 	return []entity.Team{}
 }

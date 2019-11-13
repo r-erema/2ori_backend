@@ -1,10 +1,14 @@
 package create_tourney
 
-import "../../player/dto"
+import "application/usecase/player/dto"
 
 type Command struct {
 	teamsCount uint
 	players    []*dto.Player
+}
+
+func NewCommand(teamsCount uint, players []*dto.Player) *Command {
+	return &Command{teamsCount: teamsCount, players: players}
 }
 
 func (command Command) getTeamsCount() uint {
