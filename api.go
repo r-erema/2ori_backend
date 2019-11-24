@@ -7,7 +7,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/gorilla/mux"
-	"github.com/jinzhu/gorm"
 	"github.com/joho/godotenv"
 	"infrastructure/di"
 	"log"
@@ -23,10 +22,6 @@ func main() {
 	if err != nil {
 		log.Fatal("Error loading .env file", err)
 	}
-
-	container.Invoke(func(db *gorm.DB) {
-		db.AutoMigrate()
-	})
 
 	router := mux.NewRouter()
 

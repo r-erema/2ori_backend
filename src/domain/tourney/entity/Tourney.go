@@ -1,6 +1,6 @@
 package entity
 
 type Tourney struct {
-	id         string
-	teamsCount uint
+	Id         string `gorm:"primary_key"`
+	TeamsCount uint   `gorm:"type:integer"`
 }

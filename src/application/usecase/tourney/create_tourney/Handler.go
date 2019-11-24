@@ -2,9 +2,11 @@ package create_tourney
 
 import (
 	"application/usecase/tourney/dto"
+	"domain/team/entity"
 	"domain/team/repository"
 	"fmt"
-	"sync"
+	"math/rand"
+	"time"
 )
 
 type Handler struct {
@@ -19,28 +21,55 @@ func (handler Handler) Handle(command *Command) {
 
 	players := command.getPlayers()
 	var playerTeamsBuckets []*dto.PlayerTeamsBucket
-	channel := make(chan *dto.PlayerTeamsBucket)
+	var fetchedTeamsIds []string
 
-	wg := sync.WaitGroup{}
+	getFetchedTeamsIds := func(teams []entity.Team) []string {
+		var ids []string
+		for _, team := range teams {
+			ids = append(ids, team.Id)
+		}
+		return ids
+	}
+
 	for _, player := range players {
-		wg.Add(1)
-		go func() {
-			channel <- dto.NewBucket(player, handler.teamRepository.FindByIds(player.RequiredTeamsIds))
-			wg.Done()
-		}()
+		requiredTeams := handler.teamRepository.FindByIds(player.RequiredTeamsIds)
+		fetchedTeamsIds = append(fetchedTeamsIds, getFetchedTeamsIds(requiredTeams)...)
+		playerTeamsBuckets = append(playerTeamsBuckets, dto.NewBucket(player, requiredTeams))
 	}
+	otherTeams := handler.teamRepository.GetOrderedByRatingExceptIds(fetchedTeamsIds)
 
-	select {
-	case bucket := <-channel:
-		playerTeamsBuckets = append(playerTeamsBuckets, bucket)
-	}
-	select {
-	case bucket := <-channel:
-		playerTeamsBuckets = append(playerTeamsBuckets, bucket)
-	}
+	currentPlayerIndex := 0
+	otherTeamsCount := len(otherTeams)
+	bucketsCount := len(playerTeamsBuckets)
 
-	wg.Wait()
+	//todo: distribute teams per players
+	for i := 0; i < otherTeamsCount; i++ {
+
+		if currentPlayerIndex == bucketsCount {
+			currentPlayerIndex = 0
+		}
+
+		if currentPlayerIndex < bucketsCount {
+			bucket := playerTeamsBuckets[currentPlayerIndex]
+			bucket.AppendTeams([]entity.Team{otherTeams[i]})
+		}
+		currentPlayerIndex++
+	}
 
 	fmt.Println(*playerTeamsBuckets[0], &playerTeamsBuckets[1])
+}
 
+func groupTeamByRating(teams []entity.Team) map[float32][]entity.Team {
+	groupedByRating := map[float32][]entity.Team{}
+	for _, team := range teams {
+		groupedByRating[team.Rating] = append(groupedByRating[team.Rating], team)
+	}
+	return groupedByRating
+}
+
+func shuffle(teams []entity.Team) []entity.Team {
+	var result []entity.Team
+	rand.Seed(time.Now().UnixNano())
+	rand.Shuffle(len(teams), func(i, j int) { teams[i], teams[j] = teams[j], teams[i] })
+	return append(result, teams...)
 }

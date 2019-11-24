@@ -1,7 +1,7 @@
 version: 3
 
   db:
-    image: postgres
+    image: postgres:12.1-alpine
     environment:
       POSTGRES_DB: ${DB_NAME}
       POSTGRES_USER: ${DB_USER}
@@ -10,7 +10,7 @@ version: 3
       - 5432:5432
 
   db_test:
-    image: postgres
+    image: postgres:12.1-alpine
     environment:
       POSTGRES_DB: ${DB_NAME}
       POSTGRES_USER: ${DB_USER}

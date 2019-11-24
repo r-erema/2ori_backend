@@ -1,6 +1,6 @@
 FROM golang:1.13-alpine AS build-env
 ENV CGO_ENABLED 0
-ADD . /go/src/toury_bakcend
+ADD ../.. /go/src/toury_bakcend
 ENV GOPATH "/go/src/toury_bakcend"
 WORKDIR /go/src/toury_bakcend
 RUN go build -gcflags "all=-N -l" -o /bin/toury_api ./api.go
