@@ -24,3 +24,7 @@ func NewBucket(player *dto.Player, teams []entity.Team) *PlayerTeamsBucket {
 func (bucket *PlayerTeamsBucket) AppendTeams(teams []entity.Team) {
 	bucket.teams = append(bucket.teams, teams...)
 }
+
+func (bucket *PlayerTeamsBucket) TeamsCount() uint {
+	return uint(len(bucket.teams))
+}

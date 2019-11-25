@@ -1,26 +1,19 @@
-version: 3
-
+version: '3'
+services:
   db:
     image: postgres:12.1-alpine
     environment:
-      POSTGRES_DB: ${DB_NAME}
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASS}
+      POSTGRES_DB: 'toury'
+      POSTGRES_USER: 'toury'
+      POSTGRES_PASSWORD: '111'
     ports:
-      - 5432:5432
+      - 54328:5432
 
   db_test:
     image: postgres:12.1-alpine
     environment:
-      POSTGRES_DB: ${DB_NAME}
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASS}
+      POSTGRES_DB: 'toury_test'
+      POSTGRES_USER: 'toury'
+      POSTGRES_PASSWORD: '111'
     ports:
-      - 5432:5432
-
-  app:
-    build: ./docker/app/
-    volumes:
-      - .:/go/src/app
-    depends_on:
-      - db
+      - 54329:5432

@@ -5,6 +5,7 @@ import (
 	"domain/team/entity"
 	"domain/team/repository"
 	"fmt"
+	"github.com/thoas/go-funk"
 	"math/rand"
 	"time"
 )
@@ -37,26 +38,51 @@ func (handler Handler) Handle(command *Command) {
 		playerTeamsBuckets = append(playerTeamsBuckets, dto.NewBucket(player, requiredTeams))
 	}
 	otherTeams := handler.teamRepository.GetOrderedByRatingExceptIds(fetchedTeamsIds)
+	otherTeams = shuffleTeamsByRatingGroup(otherTeams)
 
-	currentPlayerIndex := 0
 	otherTeamsCount := len(otherTeams)
 	bucketsCount := len(playerTeamsBuckets)
 
-	//todo: distribute teams per players
-	for i := 0; i < otherTeamsCount; i++ {
+	var ignoredIndexes []int
+	startFromIndex := 0
+	getNextNotFullFilledPlayerBucket := func() *dto.PlayerTeamsBucket {
+		for i := startFromIndex; i < bucketsCount; i++ {
+			if funk.IndexOf(ignoredIndexes, i) == -1 {
+				if startFromIndex >= bucketsCount-1 {
+					startFromIndex = 0
+				} else {
+					startFromIndex = i + 1
+				}
 
-		if currentPlayerIndex == bucketsCount {
-			currentPlayerIndex = 0
+				bucket := playerTeamsBuckets[i]
+				if bucket.TeamsCount() >= bucket.Player().TeamsCount {
+					ignoredIndexes = append(ignoredIndexes, i)
+					return nil
+				}
+
+				return bucket
+			}
 		}
+		return nil
+	}
 
-		if currentPlayerIndex < bucketsCount {
-			bucket := playerTeamsBuckets[currentPlayerIndex]
+	for i := 0; i < otherTeamsCount; i++ {
+		bucket := getNextNotFullFilledPlayerBucket()
+		if bucket != nil {
 			bucket.AppendTeams([]entity.Team{otherTeams[i]})
 		}
-		currentPlayerIndex++
 	}
 
 	fmt.Println(*playerTeamsBuckets[0], &playerTeamsBuckets[1])
+}
+
+func shuffleTeamsByRatingGroup(teams []entity.Team) []entity.Team {
+	grouped := groupTeamByRating(teams)
+	var result []entity.Team
+	for _, group := range grouped {
+		result = append(result, shuffle(group)...)
+	}
+	return result
 }
 
 func groupTeamByRating(teams []entity.Team) map[float32][]entity.Team {

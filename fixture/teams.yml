@@ -65,17 +65,17 @@
 - id: dabb1f81-f486-46b4-a4da-442557a139db
   name: Juventus
   rating: 5
-  league: La Liga
+  league: Serie A
 
 - id: d023ecc8-a0b8-4086-a85e-c0424a751e8a
   name: Napoli
   rating: 5
-  league: La Liga
+  league: Serie A
 
 - id: 03dc5ae9-d359-4753-9c64-e03196b8c4de
   name: Atalanta
   rating: 5
-  league: La Liga
+  league: Serie A
 
 - id: 815a347a-bc3b-4540-a59a-19fd23b9592d
   name: Inter Milan
@@ -85,46 +85,46 @@
 - id: a2189174-7996-4d5f-ae0b-91e0d74938dd
   name: AC Milan
   rating: 5
-  league: La Liga
+  league: Serie A
 
 #Bundesliga
 - id: 2c9b87a5-132e-4857-90c0-7e44af3d4596
   name:  Bayern Munich
   rating: 5
-  league: La Liga
+  league: Bundesliga
 
 - id: 255a2ac7-09c6-49c5-8f6f-8093ab2c4f04
   name: Borussia Dortmund
   rating: 5
-  league: La Liga
+  league: Bundesliga
 
 - id: 4aaeb28f-d6dd-4b52-951d-cac55aba6567
   name: RB Leipzig
   rating: 5
-  league: La Liga
+  league: Bundesliga
 
 - id: db3f6aa2-75be-4a73-9b3e-c34ad1137324
   name: Bayer Leverkusen
   rating: 5
-  league: La Liga
+  league: Bundesliga
 
 - id: 77720781-583e-41dd-b519-50c6b60ac2e5
   name: Schalke 04
   rating: 5
-  league: La Liga
+  league: Bundesliga
 
 #Ligue 1
 - id: ba336f57-0f34-4659-b91d-2a3658823e08
   name: Paris Saint-Germain
   rating: 5
-  league: La Liga
+  league: Ligue 1
 
 - id: 095b8994-edc2-42bd-95db-18e4b65479e8
   name:  Lille
   rating: 5
-  league: La Liga
+  league: Ligue 1
 
 - id: 5332dbc2-5fbc-449f-b88e-40e09124e424
   name: Lyon
   rating: 5
-  league: La Liga
+  league: Ligue 1
