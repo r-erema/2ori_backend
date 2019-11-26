@@ -1,6 +1,7 @@
 package create_tourney
 
 import (
+	PlayerDTO "application/usecase/player/dto"
 	"application/usecase/tourney/dto"
 	"domain/team/entity"
 	"domain/team/repository"
@@ -20,23 +21,8 @@ func NewHandler(teamRepository *repository.TeamRepositoryInterface) *Handler {
 
 func (handler Handler) Handle(command *Command) {
 
-	players := command.getPlayers()
-	var playerTeamsBuckets []*dto.PlayerTeamsBucket
-	var fetchedTeamsIds []string
+	fetchedTeamsIds, playerTeamsBuckets := handler.fillPlayersWithRequiredTeams(command.getPlayers())
 
-	getFetchedTeamsIds := func(teams []entity.Team) []string {
-		var ids []string
-		for _, team := range teams {
-			ids = append(ids, team.Id)
-		}
-		return ids
-	}
-
-	for _, player := range players {
-		requiredTeams := handler.teamRepository.FindByIds(player.RequiredTeamsIds)
-		fetchedTeamsIds = append(fetchedTeamsIds, getFetchedTeamsIds(requiredTeams)...)
-		playerTeamsBuckets = append(playerTeamsBuckets, dto.NewBucket(player, requiredTeams))
-	}
 	otherTeams := handler.teamRepository.GetOrderedByRatingExceptIds(fetchedTeamsIds)
 	otherTeams = shuffleTeamsByRatingGroup(otherTeams)
 
@@ -74,6 +60,18 @@ func (handler Handler) Handle(command *Command) {
 	}
 
 	fmt.Println(*playerTeamsBuckets[0], &playerTeamsBuckets[1])
+}
+
+func (handler Handler) fillPlayersWithRequiredTeams(players []*PlayerDTO.Player) (fetchedTeamsIds []string, playerTeamsBuckets []*dto.PlayerTeamsBucket) {
+	for _, player := range players {
+		requiredTeams := handler.teamRepository.FindByIds(player.RequiredTeamsIds)
+		fetchedTeamsIds = append(
+			fetchedTeamsIds,
+			funk.Map(requiredTeams, func(team entity.Team) string { return team.Id }).([]string)...,
+		)
+		playerTeamsBuckets = append(playerTeamsBuckets, dto.NewBucket(player, requiredTeams))
+	}
+	return
 }
 
 func shuffleTeamsByRatingGroup(teams []entity.Team) []entity.Team {
