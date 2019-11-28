@@ -11,10 +11,10 @@ func NewCommand(teamsCount uint, players []*dto.Player) *Command {
 	return &Command{teamsCount: teamsCount, players: players}
 }
 
-func (command Command) getTeamsCount() uint {
+func (command Command) GetTeamsCount() uint {
 	return command.teamsCount
 }
 
-func (command Command) getPlayers() []*dto.Player {
+func (command Command) GetPlayers() []*dto.Player {
 	return command.players
 }

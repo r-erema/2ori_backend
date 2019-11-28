@@ -1,6 +1,7 @@
 package di
 
 import (
+	"application/service"
 	"application/usecase/tourney/create_tourney"
 	team "domain/team/entity"
 	"domain/team/repository"
@@ -42,8 +43,15 @@ func BuildContainer() *dig.Container {
 		log.Fatal(err)
 	}
 
-	err = container.Provide(func(teamRepo repository.TeamRepositoryInterface) *create_tourney.Handler {
-		return create_tourney.NewHandler(&teamRepo)
+	err = container.Provide(func(teamRepo repository.TeamRepositoryInterface) *service.TeamsFiller {
+		return service.NewTeamsFiller(&teamRepo)
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = container.Provide(func(teamsFiller *service.TeamsFiller) *create_tourney.Handler {
+		return create_tourney.NewHandler(teamsFiller)
 	})
 	if err != nil {
 		log.Fatal(err)
