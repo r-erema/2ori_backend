@@ -5,7 +5,6 @@ import (
 	"application/usecase/tourney/dto"
 	"domain/team/entity"
 	"domain/team/repository"
-	"fmt"
 	"github.com/thoas/go-funk"
 	"math/rand"
 	"time"
@@ -20,10 +19,18 @@ func NewHandler(teamRepository *repository.TeamRepositoryInterface) *Handler {
 }
 
 func (handler Handler) Handle(command *Command) {
+	playerTeamsBuckets := handler.fillPlayersBucketsWithRequiredTeams(command.getPlayers())
+	handler.fillBucketsByOtherTeams(playerTeamsBuckets)
+}
 
-	fetchedTeamsIds, playerTeamsBuckets := handler.fillPlayersWithRequiredTeams(command.getPlayers())
+func (handler Handler) fillBucketsByOtherTeams(playerTeamsBuckets []*dto.PlayerTeamsBucket) {
 
-	otherTeams := handler.teamRepository.GetOrderedByRatingExceptIds(fetchedTeamsIds)
+	var fetchedTeamsIds []string
+	funk.Map(playerTeamsBuckets, func(bucket *dto.PlayerTeamsBucket) interface{} {
+		fetchedTeamsIds = append(fetchedTeamsIds, bucket.GetTeamsIds()...)
+		return nil
+	})
+	otherTeams := handler.teamRepository.GetOrderedByRatingExceptIds([]string{})
 	otherTeams = shuffleTeamsByRatingGroup(otherTeams)
 
 	otherTeamsCount := len(otherTeams)
@@ -58,17 +65,11 @@ func (handler Handler) Handle(command *Command) {
 			bucket.AppendTeams([]entity.Team{otherTeams[i]})
 		}
 	}
-
-	fmt.Println(*playerTeamsBuckets[0], &playerTeamsBuckets[1])
 }
 
-func (handler Handler) fillPlayersWithRequiredTeams(players []*PlayerDTO.Player) (fetchedTeamsIds []string, playerTeamsBuckets []*dto.PlayerTeamsBucket) {
+func (handler Handler) fillPlayersBucketsWithRequiredTeams(players []*PlayerDTO.Player) (playerTeamsBuckets []*dto.PlayerTeamsBucket) {
 	for _, player := range players {
 		requiredTeams := handler.teamRepository.FindByIds(player.RequiredTeamsIds)
-		fetchedTeamsIds = append(
-			fetchedTeamsIds,
-			funk.Map(requiredTeams, func(team entity.Team) string { return team.Id }).([]string)...,
-		)
 		playerTeamsBuckets = append(playerTeamsBuckets, dto.NewBucket(player, requiredTeams))
 	}
 	return

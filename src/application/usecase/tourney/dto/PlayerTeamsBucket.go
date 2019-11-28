@@ -3,6 +3,7 @@ package dto
 import (
 	"application/usecase/player/dto"
 	"domain/team/entity"
+	"github.com/thoas/go-funk"
 )
 
 type PlayerTeamsBucket struct {
@@ -27,4 +28,8 @@ func (bucket *PlayerTeamsBucket) AppendTeams(teams []entity.Team) {
 
 func (bucket *PlayerTeamsBucket) TeamsCount() uint {
 	return uint(len(bucket.teams))
+}
+
+func (bucket *PlayerTeamsBucket) GetTeamsIds() []string {
+	return funk.Map(bucket.teams, func(team entity.Team) string { return team.Id }).([]string)
 }
