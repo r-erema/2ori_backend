@@ -3,6 +3,7 @@ package create_tourney_test
 import (
 	"application/usecase/player/dto"
 	"application/usecase/tourney/create_tourney"
+	TourneyDTO "application/usecase/tourney/dto"
 	"github.com/jinzhu/gorm"
 	"github.com/joho/godotenv"
 	"gopkg.in/testfixtures.v2"
@@ -19,7 +20,7 @@ func TestHandle(t *testing.T) {
 	loadDotEnv()
 	prepareTestDatabase()
 
-	var createTourneyUseCase = create_tourney.NewCommand(16, []*dto.Player{
+	var createTourneyUseCase = create_tourney.NewCommand(8, []*dto.Player{
 		{
 			Name:             "Player 1",
 			TeamsCount:       2,
@@ -31,19 +32,24 @@ func TestHandle(t *testing.T) {
 			RequiredTeamsIds: []string{"8f5a84ae-d239-4933-8376-08d887e85404", "bac5c0f8-7d98-4097-b091-6d251ebf83ad"},
 		},
 		{
-			Name:             "Player 2",
+			Name:             "Player 3",
 			TeamsCount:       2,
 			RequiredTeamsIds: []string{},
 		},
 	})
 
-	err := container.Invoke(func(createTourneyHandler *create_tourney.Handler) {
-		createTourneyHandler.Handle(createTourneyUseCase)
+	var tourney *TourneyDTO.TourneyDTO
+	err := container.Invoke(func(handler *create_tourney.Handler) {
+		tourney = handler.Handle(createTourneyUseCase)
 	})
-
 	if err != nil {
 		t.Error(err)
 	}
+
+	if len(tourney.GetGroups()) != 2 {
+		t.Error()
+	}
+
 }
 
 func loadDotEnv() {

@@ -39,7 +39,7 @@ func (filler TeamsFiller) fillBucketsByOtherTeams(playerTeamsBuckets []*tourneyD
 		fetchedTeamsIds = append(fetchedTeamsIds, bucket.GetTeamsIds()...)
 		return nil
 	})
-	otherTeams := filler.teamRepository.GetOrderedByRatingExceptIds([]string{})
+	otherTeams := filler.teamRepository.GetOrderedByRatingExceptIds(fetchedTeamsIds)
 	otherTeams = shuffleTeamsByRatingGroup(otherTeams)
 
 	otherTeamsCount := len(otherTeams)

@@ -45,3 +45,7 @@ func (bucket *PlayerTeamsBucketDTO) PullOutRandomTeam() *entity.Team {
 	bucket.teams = append(bucket.teams[:i], bucket.teams[i+1:]...)
 	return &chosen
 }
+
+func (bucket *PlayerTeamsBucketDTO) IsEmpty() bool {
+	return len(bucket.teams) == 0
+}
