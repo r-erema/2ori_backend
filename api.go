@@ -1,8 +1,8 @@
 package main
 
 import (
-	"application/usecase/player/dto"
 	"application/usecase/tourney/create_tourney"
+	TourneyDTO "application/usecase/tourney/dto"
 	"config"
 	"encoding/json"
 	"fmt"
@@ -25,7 +25,7 @@ func main() {
 
 	router := mux.NewRouter()
 
-	router.HandleFunc(config.TourneyCreateUri, createTourney)
+	router.HandleFunc(config.TourneyCreateUri, createTourney).Methods("POST")
 
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -40,22 +40,24 @@ func main() {
 
 func createTourney(w http.ResponseWriter, r *http.Request) {
 
-	var players []*dto.Player
+	var tourneySettings TourneyDTO.TourneySettings
 
-	err := json.NewDecoder(r.Body).Decode(&players)
+	err := json.NewDecoder(r.Body).Decode(&tourneySettings)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	var createTourneyUseCase = create_tourney.NewCommand(16, players)
+	var createTourneyUseCase = create_tourney.NewCommand(tourneySettings.TourneyTeamsCount, tourneySettings.Players)
 
+	var tourneyDTO *TourneyDTO.TourneyDTO
 	err = container.Invoke(func(createTourneyHandler *create_tourney.Handler) {
-		createTourneyHandler.Handle(createTourneyUseCase)
+		tourneyDTO = createTourneyHandler.Handle(createTourneyUseCase)
 	})
-
 	if err != nil {
 		log.Println("Error container invoke:", err)
 	}
+
+	fmt.Print()
 
 	w.WriteHeader(http.StatusOK)
 }

@@ -7,6 +7,7 @@ import (
 	"domain/team/repository"
 	"github.com/thoas/go-funk"
 	"math/rand"
+	"sort"
 	"time"
 )
 
@@ -82,6 +83,9 @@ func shuffleTeamsByRatingGroup(teams []entity.Team) []entity.Team {
 	for _, group := range grouped {
 		result = append(result, shuffle(group)...)
 	}
+	sort.Slice(result, func(i, j int) bool {
+		return result[i].Rating > result[j].Rating
+	})
 	return result
 }
 

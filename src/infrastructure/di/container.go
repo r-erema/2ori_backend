@@ -17,6 +17,7 @@ import (
 )
 
 func BuildContainer() *dig.Container {
+
 	container := dig.New()
 
 	err := container.Provide(func() *gorm.DB {
