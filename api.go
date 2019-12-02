@@ -1,6 +1,8 @@
 package main
 
 import (
+	"application/usecase/team/dto"
+	"application/usecase/team/get_teams"
 	"application/usecase/tourney/create_tourney"
 	TourneyDTO "application/usecase/tourney/dto"
 	"config"
@@ -26,6 +28,7 @@ func main() {
 	router := mux.NewRouter()
 
 	router.HandleFunc(config.TourneyCreateUri, createTourney).Methods("POST")
+	router.HandleFunc(config.GetTeamsUri, getTeams).Methods("GET")
 
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -34,6 +37,29 @@ func main() {
 	err = http.ListenAndServe(":"+port, router)
 	if err != nil {
 		fmt.Print(err)
+	}
+
+}
+
+func getTeams(w http.ResponseWriter, r *http.Request) {
+	var teamsDTO *dto.TeamsDTO
+	err := container.Invoke(func(createTourneyHandler *get_teams.Handler) {
+		teamsDTO = createTourneyHandler.Handle()
+	})
+	if err != nil {
+		log.Println("Error container invoke:", err)
+	}
+
+	teamsJson, err := json.Marshal(teamsDTO)
+	if err != nil {
+		log.Println("Error json marshall", err)
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	_, err = w.Write(teamsJson)
+	if err != nil {
+		log.Println("Error write response", err)
 	}
 
 }

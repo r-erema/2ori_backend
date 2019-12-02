@@ -2,6 +2,7 @@ package di
 
 import (
 	"application/service"
+	"application/usecase/team/get_teams"
 	"application/usecase/tourney/create_tourney"
 	team "domain/team/entity"
 	"domain/team/repository"
@@ -37,15 +38,15 @@ func BuildContainer() *dig.Container {
 		log.Fatal(err)
 	}
 
-	err = container.Provide(func(db *gorm.DB) repository.TeamRepositoryInterface {
+	err = container.Provide(func(db *gorm.DB) *repository.TeamRepositoryInterface {
 		return infrastructureRepo.NewGormRepo(db)
 	})
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	err = container.Provide(func(teamRepo repository.TeamRepositoryInterface) *service.TeamsFiller {
-		return service.NewTeamsFiller(&teamRepo)
+	err = container.Provide(func(teamRepo *repository.TeamRepositoryInterface) *service.TeamsFiller {
+		return service.NewTeamsFiller(teamRepo)
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -53,6 +54,13 @@ func BuildContainer() *dig.Container {
 
 	err = container.Provide(func(teamsFiller *service.TeamsFiller) *create_tourney.Handler {
 		return create_tourney.NewHandler(teamsFiller)
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = container.Provide(func(teamRepo *repository.TeamRepositoryInterface) *get_teams.Handler {
+		return get_teams.NewHandler(teamRepo)
 	})
 	if err != nil {
 		log.Fatal(err)

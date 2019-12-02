@@ -1,3 +1,6 @@
 package config
 
-const TourneyCreateUri = "/tourney/create/"
+const (
+	TourneyCreateUri = "/tourney/create/"
+	GetTeamsUri      = "/teams/"
+)
