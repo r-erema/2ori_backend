@@ -11,22 +11,22 @@ type GormTeamsRepo struct {
 }
 
 func NewGormRepo(db *gorm.DB) repository.TeamRepositoryInterface {
-	return &GormTeamsRepo{db: db}
+	return GormTeamsRepo{db: db}
 }
 
-func (Repo *GormTeamsRepo) GetAll() []*entity.Team {
+func (Repo GormTeamsRepo) GetAll() []*entity.Team {
 	var teams []*entity.Team
 	Repo.db.Find(teams)
 	return teams
 }
 
-func (Repo *GormTeamsRepo) FindByIds(ids []string) []entity.Team {
+func (Repo GormTeamsRepo) FindByIds(ids []string) []entity.Team {
 	var teams []entity.Team
 	Repo.db.Where(ids).Find(&teams)
 	return teams
 }
 
-func (Repo *GormTeamsRepo) GetOrderedByRatingExceptIds(exceptIds []string) []entity.Team {
+func (Repo GormTeamsRepo) GetOrderedByRatingExceptIds(exceptIds []string) []entity.Team {
 	var teams []entity.Team
 	Repo.db.Not(exceptIds).Order("rating desc").Find(&teams)
 	return teams

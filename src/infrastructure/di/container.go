@@ -38,7 +38,7 @@ func BuildContainer() *dig.Container {
 		log.Fatal(err)
 	}
 
-	err = container.Provide(func(db *gorm.DB) *repository.TeamRepositoryInterface {
+	err = container.Provide(func(db *gorm.DB) repository.TeamRepositoryInterface {
 		return infrastructureRepo.NewGormRepo(db)
 	})
 	if err != nil {
