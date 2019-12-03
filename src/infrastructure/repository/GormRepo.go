@@ -16,7 +16,7 @@ func NewGormRepo(db *gorm.DB) repository.TeamRepositoryInterface {
 
 func (Repo GormTeamsRepo) GetAll() []*entity.Team {
 	var teams []*entity.Team
-	Repo.db.Find(teams)
+	Repo.db.Find(&teams)
 	return teams
 }
 

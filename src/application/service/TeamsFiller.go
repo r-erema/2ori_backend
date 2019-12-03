@@ -19,13 +19,13 @@ func NewTeamsFiller(teamRepository *repository.TeamRepositoryInterface) *TeamsFi
 	return &TeamsFiller{teamRepository: *teamRepository}
 }
 
-func (filler TeamsFiller) CreateAndFillBucketsForPlayers(players []*playerDTO.Player) []*tourneyDTO.PlayerTeamsBucketDTO {
+func (filler *TeamsFiller) CreateAndFillBucketsForPlayers(players []*playerDTO.Player) []*tourneyDTO.PlayerTeamsBucketDTO {
 	buckets := filler.fillPlayersBucketsWithRequiredTeams(players)
 	filler.fillBucketsByOtherTeams(buckets)
 	return buckets
 }
 
-func (filler TeamsFiller) fillPlayersBucketsWithRequiredTeams(players []*playerDTO.Player) (playerTeamsBuckets []*tourneyDTO.PlayerTeamsBucketDTO) {
+func (filler *TeamsFiller) fillPlayersBucketsWithRequiredTeams(players []*playerDTO.Player) (playerTeamsBuckets []*tourneyDTO.PlayerTeamsBucketDTO) {
 	for _, player := range players {
 		requiredTeams := filler.teamRepository.FindByIds(player.RequiredTeamsIds)
 		playerTeamsBuckets = append(playerTeamsBuckets, tourneyDTO.NewBucket(player, requiredTeams))
@@ -33,7 +33,7 @@ func (filler TeamsFiller) fillPlayersBucketsWithRequiredTeams(players []*playerD
 	return
 }
 
-func (filler TeamsFiller) fillBucketsByOtherTeams(playerTeamsBuckets []*tourneyDTO.PlayerTeamsBucketDTO) {
+func (filler *TeamsFiller) fillBucketsByOtherTeams(playerTeamsBuckets []*tourneyDTO.PlayerTeamsBucketDTO) {
 
 	var fetchedTeamsIds []string
 	funk.Map(playerTeamsBuckets, func(bucket *tourneyDTO.PlayerTeamsBucketDTO) interface{} {

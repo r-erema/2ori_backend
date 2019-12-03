@@ -45,8 +45,8 @@ func BuildContainer() *dig.Container {
 		log.Fatal(err)
 	}
 
-	err = container.Provide(func(teamRepo *repository.TeamRepositoryInterface) *service.TeamsFiller {
-		return service.NewTeamsFiller(teamRepo)
+	err = container.Provide(func(teamRepo repository.TeamRepositoryInterface) *service.TeamsFiller {
+		return service.NewTeamsFiller(&teamRepo)
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -59,8 +59,8 @@ func BuildContainer() *dig.Container {
 		log.Fatal(err)
 	}
 
-	err = container.Provide(func(teamRepo *repository.TeamRepositoryInterface) *get_teams.Handler {
-		return get_teams.NewHandler(teamRepo)
+	err = container.Provide(func(teamRepo repository.TeamRepositoryInterface) *get_teams.Handler {
+		return get_teams.NewHandler(&teamRepo)
 	})
 	if err != nil {
 		log.Fatal(err)

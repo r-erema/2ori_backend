@@ -5,9 +5,9 @@ import (
 )
 
 type TeamsDTO struct {
-	teams []*entity.Team
+	Teams []*entity.Team
 }
 
 func NewTeamsDTO(teams []*entity.Team) *TeamsDTO {
-	return &TeamsDTO{teams: teams}
+	return &TeamsDTO{Teams: teams}
 }
