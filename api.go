@@ -41,7 +41,19 @@ func main() {
 
 }
 
+func setupResponse(w *http.ResponseWriter, req *http.Request) {
+	(*w).Header().Set("Access-Control-Allow-Origin", "*")
+	(*w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	(*w).Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+}
+
 func getTeams(w http.ResponseWriter, r *http.Request) {
+	//todo: make cors rules beautiful
+	setupResponse(&w, r)
+	if (*r).Method == "OPTIONS" {
+		return
+	}
+
 	var teamsDTO *dto.TeamsDTO
 	err := container.Invoke(func(createTourneyHandler *get_teams.Handler) {
 		teamsDTO = createTourneyHandler.Handle()
@@ -65,6 +77,11 @@ func getTeams(w http.ResponseWriter, r *http.Request) {
 }
 
 func createTourney(w http.ResponseWriter, r *http.Request) {
+	//todo: make cors rules beautiful
+	setupResponse(&w, r)
+	if (*r).Method == "OPTIONS" {
+		return
+	}
 
 	var tourneySettings TourneyDTO.TourneySettings
 
