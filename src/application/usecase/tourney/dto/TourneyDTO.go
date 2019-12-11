@@ -1,13 +1,13 @@
 package dto
 
 type TourneyDTO struct {
-	groups []*GroupDTO
+	Groups []*GroupDTO
 }
 
 func NewTourneyDTO(groups []*GroupDTO) *TourneyDTO {
-	return &TourneyDTO{groups: groups}
+	return &TourneyDTO{Groups: groups}
 }
 
 func (tourney TourneyDTO) GetGroups() []*GroupDTO {
-	return tourney.groups
+	return tourney.Groups
 }

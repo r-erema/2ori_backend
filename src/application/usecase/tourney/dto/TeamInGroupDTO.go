@@ -6,14 +6,14 @@ import (
 )
 
 type TeamInGroupDTO struct {
-	player *dto.Player
-	team   *entity.Team //todo: convert entity to DTO
+	Player *dto.Player
+	Team   *entity.Team //todo: convert entity to DTO
 }
 
 func (team TeamInGroupDTO) GetPlayer() *dto.Player {
-	return team.player
+	return team.Player
 }
 
 func NewTeamInGroupDTO(player *dto.Player, team *entity.Team) *TeamInGroupDTO {
-	return &TeamInGroupDTO{player: player, team: team}
+	return &TeamInGroupDTO{Player: player, Team: team}
 }
