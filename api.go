@@ -27,7 +27,7 @@ func main() {
 
 	router := mux.NewRouter()
 
-	router.HandleFunc(config.TourneyCreateUri, createTourney).Methods("POST")
+	router.HandleFunc(config.TourneyCreateUri, createTourney).Methods("POST", "OPTIONS")
 	router.HandleFunc(config.GetTeamsUri, getTeams).Methods("GET")
 
 	port := os.Getenv("PORT")
@@ -90,6 +90,7 @@ func createTourney(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
+
 	var createTourneyUseCase = create_tourney.NewCommand(tourneySettings.TourneyTeamsCount, tourneySettings.Players)
 
 	var tourneyDTO *TourneyDTO.TourneyDTO
@@ -100,7 +101,9 @@ func createTourney(w http.ResponseWriter, r *http.Request) {
 		log.Println("Error container invoke:", err)
 	}
 
-	fmt.Print()
-
+	err = json.NewEncoder(w).Encode(tourneyDTO)
+	if err != nil {
+		log.Println("Error encode:", err)
+	}
 	w.WriteHeader(http.StatusOK)
 }
