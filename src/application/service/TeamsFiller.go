@@ -27,7 +27,7 @@ func (filler *TeamsFiller) CreateAndFillBucketsForPlayers(players []*playerDTO.P
 
 func (filler *TeamsFiller) fillPlayersBucketsWithRequiredTeams(players []*playerDTO.Player) (playerTeamsBuckets []*tourneyDTO.PlayerTeamsBucketDTO) {
 	for _, player := range players {
-		requiredTeams := filler.teamRepository.FindByIds(player.RequiredTeamsIds)
+		requiredTeams := filler.teamRepository.FindByIds(player.RequiredTeamIds)
 		playerTeamsBuckets = append(playerTeamsBuckets, tourneyDTO.NewBucket(player, requiredTeams))
 	}
 	return

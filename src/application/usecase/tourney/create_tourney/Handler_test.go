@@ -22,19 +22,19 @@ func TestHandle(t *testing.T) {
 
 	var createTourneyUseCase = create_tourney.NewCommand(8, []*dto.Player{
 		{
-			Name:             "Player 1",
-			TeamsCount:       2,
-			RequiredTeamsIds: []string{"58b1d3c5-d993-44ac-86cb-e1771ed01f5e"},
+			Name:            "Player 1",
+			TeamsCount:      2,
+			RequiredTeamIds: []string{"58b1d3c5-d993-44ac-86cb-e1771ed01f5e"},
 		},
 		{
-			Name:             "Player 2",
-			TeamsCount:       4,
-			RequiredTeamsIds: []string{"8f5a84ae-d239-4933-8376-08d887e85404", "bac5c0f8-7d98-4097-b091-6d251ebf83ad"},
+			Name:            "Player 2",
+			TeamsCount:      4,
+			RequiredTeamIds: []string{"8f5a84ae-d239-4933-8376-08d887e85404", "bac5c0f8-7d98-4097-b091-6d251ebf83ad"},
 		},
 		{
-			Name:             "Player 3",
-			TeamsCount:       2,
-			RequiredTeamsIds: []string{},
+			Name:            "Player 3",
+			TeamsCount:      2,
+			RequiredTeamIds: []string{},
 		},
 	})
 
