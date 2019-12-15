@@ -34,6 +34,7 @@ func main() {
 	if port == "" {
 		port = "8008"
 	}
+	log.Println("2ori api started...")
 	err = http.ListenAndServe(":"+port, router)
 	if err != nil {
 		fmt.Print(err)

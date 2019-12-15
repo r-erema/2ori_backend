@@ -1,0 +1,21 @@
+version: '3'
+services:
+  db:
+    image: postgres:12.1-alpine
+    environment:
+      POSTGRES_DB: 'toury'
+      POSTGRES_USER: 'toury'
+      POSTGRES_PASSWORD: '111'
+    ports:
+      - 5432:5432
+
+  app:
+    image: golang:1.13.5-alpine
+    volumes:
+      - ./:/app
+    environment:
+      GOPATH: "/app"
+    working_dir: /app
+    command: sh -c "go build -o api && ./api"
+    ports:
+      - 8008:8008
