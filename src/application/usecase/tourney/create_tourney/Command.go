@@ -1,6 +1,6 @@
 package create_tourney
 
-import "application/usecase/player/dto"
+import "toury_bakcend/src/application/usecase/player/dto"
 
 type Command struct {
 	teamsCount uint

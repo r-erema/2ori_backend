@@ -1,6 +1,6 @@
 package repository
 
-import "domain/team/entity"
+import "toury_bakcend/src/domain/team/entity"
 
 type TeamRepositoryInterface interface {
 	GetAll() []*entity.Team

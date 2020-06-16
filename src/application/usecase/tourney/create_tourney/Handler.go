@@ -1,8 +1,8 @@
 package create_tourney
 
 import (
-	"application/service"
-	"application/usecase/tourney/dto"
+	"toury_bakcend/src/application/service"
+	"toury_bakcend/src/application/usecase/tourney/dto"
 )
 
 type Handler struct {
@@ -46,7 +46,7 @@ func (handler Handler) Handle(command *Command) *dto.TourneyDTO {
 			}
 		}
 
-		for !allGroupsFullFilled {
+		if !allGroupsFullFilled {
 			group := groups[i]
 			if !group.IsFullFilled() {
 				result = group
@@ -56,7 +56,6 @@ func (handler Handler) Handle(command *Command) *dto.TourneyDTO {
 			} else {
 				i++
 			}
-			break
 		}
 		return result
 	}

@@ -14,5 +14,5 @@
 .idea
 
 pkg
-
+vendor
 docker-compose.yml

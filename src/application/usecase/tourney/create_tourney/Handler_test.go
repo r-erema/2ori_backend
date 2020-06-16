@@ -1,15 +1,15 @@
 package create_tourney_test
 
 import (
-	"application/usecase/player/dto"
-	"application/usecase/tourney/create_tourney"
-	TourneyDTO "application/usecase/tourney/dto"
 	"github.com/jinzhu/gorm"
 	"github.com/joho/godotenv"
 	"gopkg.in/testfixtures.v2"
-	"infrastructure/di"
 	"log"
 	"testing"
+	"toury_bakcend/src/application/usecase/player/dto"
+	"toury_bakcend/src/application/usecase/tourney/create_tourney"
+	TourneyDTO "toury_bakcend/src/application/usecase/tourney/dto"
+	"toury_bakcend/src/infrastructure/di"
 )
 
 var (

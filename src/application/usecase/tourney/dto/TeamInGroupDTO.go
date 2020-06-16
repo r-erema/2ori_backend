@@ -1,8 +1,8 @@
 package dto
 
 import (
-	"application/usecase/player/dto"
-	"domain/team/entity"
+	"toury_bakcend/src/application/usecase/player/dto"
+	"toury_bakcend/src/domain/team/entity"
 )
 
 type TeamInGroupDTO struct {

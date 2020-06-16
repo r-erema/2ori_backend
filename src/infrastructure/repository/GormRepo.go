@@ -1,9 +1,9 @@
 package repository
 
 import (
-	"domain/team/entity"
-	repository "domain/team/repository"
 	"github.com/jinzhu/gorm"
+	"toury_bakcend/src/domain/team/entity"
+	repository "toury_bakcend/src/domain/team/repository"
 )
 
 type GormTeamsRepo struct {

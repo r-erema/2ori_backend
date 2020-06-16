@@ -1,14 +1,14 @@
 package service
 
 import (
-	playerDTO "application/usecase/player/dto"
-	tourneyDTO "application/usecase/tourney/dto"
-	"domain/team/entity"
-	"domain/team/repository"
 	"github.com/thoas/go-funk"
 	"math/rand"
 	"sort"
 	"time"
+	playerDTO "toury_bakcend/src/application/usecase/player/dto"
+	tourneyDTO "toury_bakcend/src/application/usecase/tourney/dto"
+	"toury_bakcend/src/domain/team/entity"
+	"toury_bakcend/src/domain/team/repository"
 )
 
 type TeamsFiller struct {

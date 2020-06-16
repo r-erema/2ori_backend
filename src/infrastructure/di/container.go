@@ -1,20 +1,20 @@
 package di
 
 import (
-	"application/service"
-	"application/usecase/team/get_teams"
-	"application/usecase/tourney/create_tourney"
-	team "domain/team/entity"
-	"domain/team/repository"
-	tourney "domain/tourney/entity"
 	"fmt"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	_ "github.com/joho/godotenv"
 	"go.uber.org/dig"
-	infrastructureRepo "infrastructure/repository"
 	"log"
 	"os"
+	"toury_bakcend/src/application/service"
+	"toury_bakcend/src/application/usecase/team/get_teams"
+	"toury_bakcend/src/application/usecase/tourney/create_tourney"
+	team "toury_bakcend/src/domain/team/entity"
+	"toury_bakcend/src/domain/team/repository"
+	tourney "toury_bakcend/src/domain/tourney/entity"
+	infrastructureRepo "toury_bakcend/src/infrastructure/repository"
 )
 
 func BuildContainer() *dig.Container {

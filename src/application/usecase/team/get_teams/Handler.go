@@ -1,8 +1,8 @@
 package get_teams
 
 import (
-	"application/usecase/team/dto"
-	"domain/team/repository"
+	"toury_bakcend/src/application/usecase/team/dto"
+	"toury_bakcend/src/domain/team/repository"
 )
 
 type Handler struct {

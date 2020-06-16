@@ -2,10 +2,10 @@ package main
 
 import (
 	"bytes"
-	"config"
 	"net/http"
 	"net/http/httptest"
 	"testing"
+	"toury_bakcend/src/config"
 )
 
 func TestCreateTourney(t *testing.T) {

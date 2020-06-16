@@ -1,7 +1,7 @@
 package dto
 
 import (
-	"domain/team/entity"
+	"toury_bakcend/src/domain/team/entity"
 )
 
 type TeamsDTO struct {

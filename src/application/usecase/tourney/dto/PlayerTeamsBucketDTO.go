@@ -1,11 +1,11 @@
 package dto
 
 import (
-	"application/usecase/player/dto"
-	"domain/team/entity"
 	"github.com/thoas/go-funk"
 	"math/rand"
 	"time"
+	"toury_bakcend/src/application/usecase/player/dto"
+	"toury_bakcend/src/domain/team/entity"
 )
 
 type PlayerTeamsBucketDTO struct {

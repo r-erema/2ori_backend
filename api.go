@@ -1,19 +1,19 @@
 package main
 
 import (
-	"application/usecase/team/dto"
-	"application/usecase/team/get_teams"
-	"application/usecase/tourney/create_tourney"
-	TourneyDTO "application/usecase/tourney/dto"
-	"config"
 	"encoding/json"
 	"fmt"
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
-	"infrastructure/di"
 	"log"
 	"net/http"
 	"os"
+	"toury_bakcend/src/application/usecase/team/dto"
+	"toury_bakcend/src/application/usecase/team/get_teams"
+	"toury_bakcend/src/application/usecase/tourney/create_tourney"
+	TourneyDTO "toury_bakcend/src/application/usecase/tourney/dto"
+	"toury_bakcend/src/config"
+	"toury_bakcend/src/infrastructure/di"
 )
 
 var container = di.BuildContainer()
@@ -42,7 +42,7 @@ func main() {
 
 }
 
-func setupResponse(w *http.ResponseWriter, req *http.Request) {
+func setupResponse(w *http.ResponseWriter) {
 	(*w).Header().Set("Access-Control-Allow-Origin", "*")
 	(*w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
 	(*w).Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
@@ -50,7 +50,7 @@ func setupResponse(w *http.ResponseWriter, req *http.Request) {
 
 func getTeams(w http.ResponseWriter, r *http.Request) {
 	//todo: make cors rules beautiful
-	setupResponse(&w, r)
+	setupResponse(&w)
 	if (*r).Method == "OPTIONS" {
 		return
 	}
@@ -79,7 +79,7 @@ func getTeams(w http.ResponseWriter, r *http.Request) {
 
 func createTourney(w http.ResponseWriter, r *http.Request) {
 	//todo: make cors rules beautiful
-	setupResponse(&w, r)
+	setupResponse(&w)
 	if (*r).Method == "OPTIONS" {
 		return
 	}
